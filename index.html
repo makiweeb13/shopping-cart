@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Shopping Cart</title>
+</head>
+<body>
+    <main>
+        <nav>
+            <div class="heading">
+            <h1>General Store</h1>
+            <button class="toggle-nav"><i class="fa-solid fa-bars"></i></button>
+            </div>
+            <ul class="nav-links">
+                <li>About</li>
+                <li>Home</li>
+                <li>Contact</li>
+            </ul>
+        </nav>
+        <div class="options">
+            <h3>Categories</h3>
+            <ul class="categories">
+            <li class="category-style">Clothes</li>
+            <li class="category-style">Foods</li>
+            <li class="category-style">Gadgets</li>
+            <li class="category-style">Cosmetics</li>
+            </ul>
+            <button class="toggle-cart"><i class="fa-solid fa-cart-shopping"></i></button>
+        </div>
+        <div class="cart">
+            <div class="group">
+                <p>Item</p>
+                <p>Price</p>
+                <p>Quantity</p>
+            </div>
+            <ul>
+                <li class="cart-item">
+                    <p>Product</p>
+                    <p>$20</p>
+                    <input type="number" name="quantity" class="quantity" value="1">
+                    <button class="remove"><i class="fa-solid fa-xmark"></i></button>
+                </li>
+                <li class="cart-item">
+                    <p>Product</p>
+                    <p>$30</p>
+                    <input type="number" name="quantity" class="quantity" value="1">
+                    <button class="remove"><i class="fa-solid fa-xmark"></i></button>
+                </li>
+                <li class="cart-item">
+                    <p>Product</p>
+                    <p>$40</p>
+                    <input type="number" name="quantity" class="quantity" value="1">
+                    <button class="remove"><i class="fa-solid fa-xmark"></i></button>
+                </li>
+            </ul>
+            <div class="total-purchase">
+                <p>Total: <span class="total price"></span></p>
+                <button class="purchase">Purchase</button>
+            </div>
+        </div>
+        <div>
+            <!-- Photos not mine. Credits to the owners of the pics below. -->
+            <ul class="items">
+            <li class="product">
+                <img src="./images/outfit1.jpg" alt="Product 1">
+                <p>Cool weather outfit </p>
+                <div class="price-wrap">
+                    <p class="price">$10</p>
+                    <button class="add-to-cart-btn" data-product-id="1">Add to Cart</button>
+                </div>
+            </li>
+            <li class="product">
+                <img src="./images/outfit2.jpg" alt="Product 2">
+                <p>School outfit</p>
+                <div class="price-wrap">
+                    <p class="price">$20</p>
+                    <button class="add-to-cart-btn" data-product-id="1">Add to Cart</button>
+                </div>
+            </li>
+            <li class="product">
+                <img src="./images/outfit3.jpg" alt="Product 3">
+                <p>Aesthetic school outfit</p>
+                <div class="price-wrap">
+                    <p class="price">$30</p>
+                    <button class="add-to-cart-btn" data-product-id="1">Add to Cart</button>
+                </div>
+            </li>
+            <li class="product">
+                <img src="./images/outfit4.jpg" alt="Product 4">
+                <p>Casual outfit</p>
+                <div class="price-wrap">
+                    <p class="price">$40</p>
+                    <button class="add-to-cart-btn" data-product-id="1">Add to Cart</button>
+                </div>
+            </li>
+            <li class="product">
+                <img src="./images/outfit5.jpg" alt="Product 5">
+                <p>First-day-of-school</p>
+                <div class="price-wrap">
+                    <p class="price">$50</p>
+                    <button class="add-to-cart-btn" data-product-id="1">Add to Cart</button>
+                </div>
+            </li>
+            <li class="product">
+                <img src="./images/outfit6.jpg" alt="Product 5">
+                <p>Korean outfit</p>
+                <div class="price-wrap">
+                    <p class="price">$60</p>
+                    <button class="add-to-cart-btn" data-product-id="1">Add to Cart</button>
+                </div>
+            </li>
+            </ul>
+        </div>
+    </main>
+    <script src="shop.js"></script>
+</body>
+<footer>
+    <i class="fa-regular fa-copyright"></i>
+    Copyright 2022 General Store. All rights reserved. <br>
+  </footer>
+</html>
