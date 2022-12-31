@@ -15,10 +15,15 @@
     --lighter-teal: #BFEAF5;
     --white: #fff;
     --transition: all 0.3s linear;
+    --border-style: 3px solid var(--teal);
+    --shadow-style: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    --input-color: rgb(248, 248, 248);
+    --gray: rgb(68, 68, 68);
+    --danger: rgb(204, 42, 42);
 }
 
 body {
-    background-color: #ffffff;
+    background-color: var(--white);
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
     background: var(--navy);
 }
@@ -74,7 +79,7 @@ footer {
 .toggle-nav {
     background-color: transparent;
     border-color: transparent;
-    color: rgb(68, 68, 68);
+    color: var(--gray);
     font-size: 1.5rem;
     padding: 0 1.5rem;
     position: absolute;
@@ -119,9 +124,9 @@ button:hover {
     bottom: 10px;
     padding: 20px;
     width: fit-content;
-    min-width: 400px;
+    min-width: 450px;
     border-radius: 10px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-style);
     display: none;
 }
 
@@ -133,12 +138,12 @@ button:hover {
     display: flex;
     justify-content: space-between;
     padding: 5px;
-    border-bottom: 3px solid var(--teal);
+    border-bottom: var(--border-style);
 }
 
 .cart-item {
     display: flex;
-    padding: 10px 0;
+    padding: 5px 0;
     align-items: center;
     justify-content: space-between;
 }
@@ -154,18 +159,20 @@ button:hover {
     justify-content: space-around;
     margin-top: 20px;
     align-items: center;
+    border-top: var(--border-style);
+    padding: 10px 0;
 }
 
 .quantity {
     width: 40px;
     border-color: var(--teal);
-    background-color: rgb(248, 248, 248);
+    background-color: var(--input-color);
 }
 
 .remove {
     border: none;
     background-color: transparent;
-    color: rgb(204, 42, 42);
+    color: var(--danger);
 }
 
 .purchase {
@@ -193,6 +200,19 @@ img {
     margin: 5px;
 }
 
+.item-img {
+    width: 50px;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+}
+
+.info p {
+    padding: 0 8px;
+}
+
 .add-to-cart-btn {
     color: var(--white);
 }
@@ -201,6 +221,10 @@ img {
     color: var(--navy);
     font-size: 18px;
     padding-right: 5px;
+}
+
+.total-price {
+    color: var(--navy);
 }
 
 .price-wrap {
