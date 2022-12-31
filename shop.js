@@ -16,7 +16,7 @@ function updateTotal(pricesList) {
         const price = parseFloat(pricesList[i].innerHTML.replace('$', ''));
         totalPrice += price;
     }
-    displayTotalPrice.textContent = `\$${totalPrice}`;
+    displayTotalPrice.textContent = `\$${totalPrice.toFixed(2)}`;
 }
 
 navToggleBtn.addEventListener('click', () => {
@@ -48,7 +48,7 @@ addToCartBtn.forEach(btn => btn.addEventListener('click', () => {
                 <img class="item-img" src="${productImg}">
                 <p>${productName}</p>
             </div>
-            <p class="item-price">$${price}</p>
+            <p class="item-price">$${price.toFixed(2)}</p>
             <div>
                 <input type="number" name="quantity" class="quantity" min="1" value="1">
                 <button class="remove" data-product-id="${productId}"><i class="fa-solid fa-xmark"></i></button>
@@ -83,7 +83,7 @@ addToCartBtn.forEach(btn => btn.addEventListener('click', () => {
             const currentQuantity = parseInt(quantity[i].value);
             const updatedPrice = originalPrice * currentQuantity;
 
-            itemPrices[i].innerHTML = `\$${updatedPrice}`;
+            itemPrices[i].innerHTML = `\$${updatedPrice.toFixed(2)}`;
             quantity[i].setAttribute('value', currentQuantity);
 
             updateTotal(document.querySelectorAll('.item-price'));

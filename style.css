@@ -70,6 +70,7 @@ footer {
     display: block;
     padding: 3px;
     transition: var(--transition);
+    
 }
 
 .nav-show {
@@ -103,7 +104,8 @@ footer {
 }
 
 .categories li {
-    padding: 5px;
+    padding: 10px;
+    cursor: pointer;
 }
 
 .toggle-cart {
@@ -163,6 +165,11 @@ button:hover {
     padding: 10px 0;
 }
 
+.clothes {
+    background-color: var(--input-color);
+    border-radius: 10px;
+}
+
 .quantity {
     width: 40px;
     border-color: var(--teal);
@@ -188,7 +195,7 @@ button:hover {
     margin: 5px 0;
     padding: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 img {
@@ -240,5 +247,44 @@ img {
 @media only screen and (min-width: 1370px) {
     .items {
         height: 35rem;
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    .toggle-nav {
+        display: none;
+    }
+    .nav-links {
+        height: 5rem;
+        display: flex;
+        position: absolute;
+        z-index: 3;
+        color: var(--gray);
+        right: 10px;
+        top: 12px;
+    }
+}
+
+/* for mobile screens */
+
+@media (max-width: 520px) {
+    .cart {
+        transform: scale(0.7);
+        position: fixed;
+        right: -3rem;
+        bottom: -1rem;
+    }
+    .options h3 {
+        font-size: 15px;
+    }
+
+    .categories li {
+        font-size: 9px;
+        padding: 10px 5px;
+        margin: 0;
+    }
+    .product {
+        width: 100%;
+        padding: 20px;
     }
 }
