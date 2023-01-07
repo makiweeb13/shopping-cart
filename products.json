@@ -1,0 +1,88 @@
+{
+    "products": [
+        {
+            "name": "Cool weather outfit",
+            "price": "$10.50",
+            "img": "./images/outfit1.jpg",
+            "category": "clothes",
+            "productId": 0
+        },
+        {
+            "name": "School outfit",
+            "price": "$20.00",
+            "img": "./images/outfit2.jpg",
+            "category": "clothes",
+            "productId": 1
+        },
+        {
+            "name": "Aesthetic school outfit",
+            "price": "$30.80",
+            "img": "./images/outfit3.jpg",
+            "category": "clothes",
+            "productId": 2
+        },
+        {
+            "name": "Casual outfit",
+            "price": "$40.25",
+            "img": "./images/outfit4.jpg",
+            "category": "clothes",
+            "productId": 3
+        },
+        {
+            "name": "First-day-of-school",
+            "price": "$50.25",
+            "img": "./images/outfit5.jpg",
+            "category": "clothes",
+            "productId": 4
+        },
+        {
+            "name": "Korean outfit",
+            "price": "$60.00",
+            "img": "./images/outfit6.jpg",
+            "category": "clothes",
+            "productId": 5
+        },
+        {
+            "name": "Cosmetics Set",
+            "price": "$100.00",
+            "img": "./images/cosmetics1.jpg",
+            "category": "cosmetics",
+            "productId": 6
+        },
+        {
+            "name": "Huawei Phone",
+            "price": "$800.75",
+            "img": "./images/gadget1.png",
+            "category": "gadgets",
+            "productId": 7
+        },
+        {
+            "name": "Dried Shrimp",
+            "price": "$45.00",
+            "img": "./images/food1.jpg",
+            "category": "foods",
+            "productId": 8
+        },
+        {
+            "name": "Laptop",
+            "price": "$1500.00",
+            "img": "./images/gadget2.png",
+            "category": "gadgets",
+            "productId": 9
+        },
+        {
+            "name": "Make-uo brush set",
+            "price": "$160.50",
+            "img": "./images/cosmetics2.jpg",
+            "category": "cosmetics",
+            "productId": 10
+        },
+        {
+            "name": "Packed Lunch",
+            "price": "$35.00",
+            "img": "./images/food2.jpg",
+            "category": "foods",
+            "productId": 11
+        }
+    ]
+}

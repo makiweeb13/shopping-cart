@@ -165,7 +165,7 @@ button:hover {
     padding: 10px 0;
 }
 
-.clothes {
+.selected {
     background-color: var(--input-color);
     border-radius: 10px;
 }
@@ -207,6 +207,10 @@ img {
     margin: 5px;
 }
 
+.product img {
+    height: 200px;
+}
+
 .item-img {
     width: 50px;
 }
@@ -244,10 +248,8 @@ img {
     transform: rotate(90deg);
 }
 
-@media only screen and (min-width: 1370px) {
-    .items {
-        height: 35rem;
-    }
+.hide {
+    display: none;
 }
 
 @media only screen and (min-width: 800px) {
