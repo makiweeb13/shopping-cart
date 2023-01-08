@@ -6,6 +6,8 @@ const noItem = document.querySelector('.no-item');
 const categories = document.querySelectorAll('.category-style');
 const items = document.querySelector('.items');
 
+let productsList, prices, products, addToCartBtn;
+
 function fetchProducts() {
     return new Promise((resolve, reject) => {
         fetch('products.json')
@@ -20,8 +22,10 @@ function fetchProducts() {
 fetchProducts()
     .then(() => {
         render(productsList);
-        handleCategories(productsList);
-        handleStore();
+    })
+    .then(() => {
+        document.addEventListener('DOMContentLoaded', handleStore());
+        handleAddToCart(prices, products, addToCartBtn);
     })
 
 function render(list) {
@@ -37,34 +41,35 @@ function render(list) {
             </div>
         </li>
         `
-    });
+    })
 }
 
 function updateTotal(pricesList, totalAmount) {
-
     let totalPrice = 0;
     for (let i = 0; i < pricesList.length; i++) {
         const price = parseFloat(pricesList[i].innerHTML.replace('$', ''));
         totalPrice += price;
     }
-
     totalAmount.textContent = `\$${totalPrice.toFixed(2)}`;
 }
 
 function handleStore() {
-    const prices = document.querySelectorAll('.price');
-    const products = document.querySelectorAll('.product-name');
-    const addToCartBtn = document.querySelectorAll('.add-to-cart-btn');
-    const cartItem = document.querySelector('.cart-item');
-    const itemsAdded = document.querySelector('.items-added');
-    const displayTotalPrice = document.querySelector('.total-price');
+    prices = document.querySelectorAll('.price');
+    products = document.querySelectorAll('.product-name');
+    addToCartBtn = document.querySelectorAll('.add-to-cart-btn');
+}
 
+function handleAddToCart(prices, products, addToCartBtn) {
+    console.log(addToCartBtn)
     addToCartBtn.forEach(btn => btn.addEventListener('click', () => {
         const productId = parseInt(btn.dataset.productId);
         const price = parseFloat(prices[productId].innerHTML.replace('$', ''));
         const productName = products[productId].innerHTML;
         const productImg = products[productId].parentElement.querySelector('img').src;
-
+        const cartItem = document.querySelector('.cart-item');
+        const itemsAdded = document.querySelector('.items-added');
+        const displayTotalPrice = document.querySelector('.total-price');
+        
         btn.innerHTML = 'Added to cart';
         btn.disabled = true;
         btn.style.backgroundColor = 'var(--light-teal)';
@@ -125,14 +130,26 @@ function handleStore() {
     }))
 }
 
-function handleCategories(products) {
-    categories.forEach(category => category.addEventListener('click', () => {
-        const currentCategory = category.classList[1];
-        const filtered  = products.filter(product => product.category === currentCategory);
-        items.innerHTML = '';
-        render(filtered);
-    }))
-}
+categories.forEach(category => category.addEventListener('click', () => {
+    const currentCategory = category.classList[1];
+
+    fetch('products.json')
+        .then(response => response.json())
+        
+        .then(data => {
+            productsList = data.products.filter(product => product.category === currentCategory);
+            render(productsList);
+        })
+        .then(() => {
+            document.addEventListener('DOMContentLoaded', handleStore());
+            handleAddToCart(prices, products, addToCartBtn);
+        })
+        .then(() => {
+            while (items.children.length > productsList.length) {
+                items.removeChild(items.children[0]);
+            }
+        })
+}))
 
 navToggleBtn.addEventListener('click', () => {
     navLinks.classList.toggle('nav-show');

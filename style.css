@@ -42,6 +42,7 @@ button {
     background-color: var(--teal);
     padding: 5px 10px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 footer {
