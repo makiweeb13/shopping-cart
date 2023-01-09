@@ -5,8 +5,10 @@ const cart = document.querySelector('.cart');
 const noItem = document.querySelector('.no-item');
 const categories = document.querySelectorAll('.category-style');
 const items = document.querySelector('.items');
+const purchaseBtn = document.querySelector('.purchase');
+const displayTotalPrice = document.querySelector('.total-price');
 
-let productsList, prices, products, addToCartBtn;
+let productsList, itemsOnCart, purchases = [];
 
 function fetchProducts() {
     return new Promise((resolve, reject) => {
@@ -22,14 +24,10 @@ function fetchProducts() {
 fetchProducts()
     .then(() => {
         render(productsList);
-    })
-    .then(() => {
-        document.addEventListener('DOMContentLoaded', handleStore());
-        handleAddToCart(prices, products, addToCartBtn);
+        handleAddToCart();
     })
 
 function render(list) {
-    
     list.forEach(product => {
         items.innerHTML += `
         <li class="product">
@@ -53,32 +51,26 @@ function updateTotal(pricesList, totalAmount) {
     totalAmount.textContent = `\$${totalPrice.toFixed(2)}`;
 }
 
-function handleStore() {
-    prices = document.querySelectorAll('.price');
-    products = document.querySelectorAll('.product-name');
-    addToCartBtn = document.querySelectorAll('.add-to-cart-btn');
-}
-
-function handleAddToCart(prices, products, addToCartBtn) {
-    console.log(addToCartBtn)
-    addToCartBtn.forEach(btn => btn.addEventListener('click', () => {
+function handleAddToCart() {
+    const addToCartBtn = document.querySelectorAll('.add-to-cart-btn');
+    addToCartBtn.forEach(btn => btn.addEventListener('click', function() {
         const productId = parseInt(btn.dataset.productId);
-        const price = parseFloat(prices[productId].innerHTML.replace('$', ''));
-        const productName = products[productId].innerHTML;
-        const productImg = products[productId].parentElement.querySelector('img').src;
+        const price = parseFloat(btn.parentElement.querySelector('.price').innerHTML.replace('$', ''));
+        const productName = btn.parentElement.parentElement.querySelector('.product-name').innerHTML;
+        const productImg = btn.parentElement.parentElement.querySelector('img').src;
         const cartItem = document.querySelector('.cart-item');
-        const itemsAdded = document.querySelector('.items-added');
-        const displayTotalPrice = document.querySelector('.total-price');
+        itemsOnCart = document.querySelector('.items-added');
         
         btn.innerHTML = 'Added to cart';
         btn.disabled = true;
         btn.style.backgroundColor = 'var(--light-teal)';
+        purchases.push(productId);
 
         if (cartItem.innerHTML.includes('No items')) {
             noItem.classList.add('hide');
         }
         
-        itemsAdded.innerHTML += `
+        itemsOnCart.innerHTML += `
             <li class="cart-item">
                 <div class="info">
                     <img class="item-img" src="${productImg}">
@@ -97,66 +89,84 @@ function handleAddToCart(prices, products, addToCartBtn) {
         const quantity = document.querySelectorAll('.quantity');
         
         for (let i = 0; i < removeBtn.length; i++) {
-
-            removeBtn[i].addEventListener('click', () => {
-
+            removeBtn[i].addEventListener('click', function() {
                 const idRemoved = parseInt(removeBtn[i].dataset.productId);
-                addToCartBtn[idRemoved].innerHTML = 'Add to cart';
-                addToCartBtn[idRemoved].disabled = false;
-                addToCartBtn[idRemoved].style.backgroundColor = 'var(--teal)';
+                for (let j = 0; j < addToCartBtn.length; j++) {
+                    const findId1 = parseInt(addToCartBtn[j].dataset.productId);
+                    if (findId1 === idRemoved) {
+                        addToCartBtn[j].innerHTML = 'Add to cart';
+                        addToCartBtn[j].disabled = false;
+                        addToCartBtn[j].style.backgroundColor = 'var(--teal)';
+                    } 
+                }
                 cartItems[i+1].remove();
-
+                purchases = purchases.filter(id => id !== idRemoved);
                 updateTotal(document.querySelectorAll('.item-price'), displayTotalPrice);
             })
         }
 
         for (let i = 0; i < quantity.length; i++) {
-
-            quantity[i].addEventListener('change', () => {
-
+            quantity[i].addEventListener('change', function() {
                 const currentId = parseInt(removeBtn[i].dataset.productId);
-                const originalPrice = parseFloat(addToCartBtn[currentId].parentElement.querySelector('.price').innerHTML.replace('$', ''));
+                let originalPrice;
+                for (let j = 0; j < addToCartBtn.length; j++) {
+                    const findId2 = parseInt(addToCartBtn[j].dataset.productId);
+                    if (findId2 === currentId) {
+                        originalPrice = parseFloat(addToCartBtn[j].parentElement.querySelector('.price').innerHTML.replace('$', ''));
+                    } 
+                }
                 const currentQuantity = parseInt(quantity[i].value);
                 const updatedPrice = originalPrice * currentQuantity;
-
                 itemPrices[i].innerHTML = `\$${updatedPrice.toFixed(2)}`;
                 quantity[i].setAttribute('value', currentQuantity);
-
+            
                 updateTotal(document.querySelectorAll('.item-price'), displayTotalPrice);
             })
         }
 
         updateTotal(itemPrices, displayTotalPrice)
-    }))
+    }));
 }
 
-categories.forEach(category => category.addEventListener('click', () => {
+categories.forEach(category => category.addEventListener('click', function() {
     const currentCategory = category.classList[1];
-
-    fetch('products.json')
-        .then(response => response.json())
-        
-        .then(data => {
-            productsList = data.products.filter(product => product.category === currentCategory);
-            render(productsList);
-        })
-        .then(() => {
-            document.addEventListener('DOMContentLoaded', handleStore());
-            handleAddToCart(prices, products, addToCartBtn);
-        })
-        .then(() => {
-            while (items.children.length > productsList.length) {
-                items.removeChild(items.children[0]);
+    const filtered = productsList.filter(product => product.category === currentCategory);
+    items.innerHTML = '';
+    render(filtered);
+    handleAddToCart();
+    const addToCartBtn = document.querySelectorAll('.add-to-cart-btn');
+    for (let i = 0; i < purchases.length; i++) {
+        for (let j = 0; j < addToCartBtn.length; j++) {
+            const findId = parseInt(addToCartBtn[j].dataset.productId);
+            if (findId === purchases[i]) {
+                addToCartBtn[j].innerHTML = 'Added to cart';
+                addToCartBtn[j].disabled = true;
+                addToCartBtn[j].style.backgroundColor = 'var(--light-teal)';
             }
-        })
+        }
+    }
 }))
 
-navToggleBtn.addEventListener('click', () => {
+navToggleBtn.addEventListener('click', function() {
     navLinks.classList.toggle('nav-show');
     navToggleBtn.classList.toggle('rotate');
 })
 
-cartToggleBtn.addEventListener('click', () => {
+cartToggleBtn.addEventListener('click', function() {
     cart.classList.toggle('show');
 })
 
+purchaseBtn.addEventListener('click', function() {
+    alert('Thank you for purchasing!');
+    const addToCartBtn = document.querySelectorAll('.add-to-cart-btn');
+    while (itemsOnCart.children.length > 1) {
+        itemsOnCart.removeChild(itemsOnCart.children[1]);
+    }
+    updateTotal(document.querySelectorAll('.item-price'), displayTotalPrice);
+    purchases = [];
+    for (let i = 0; i < addToCartBtn.length; i++) {
+        addToCartBtn[i].innerHTML = 'Add to cart';
+        addToCartBtn[i].disabled = false;
+        addToCartBtn[i].style.backgroundColor = 'var(--teal)';
+    }
+})
