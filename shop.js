@@ -109,16 +109,21 @@ function handleAddToCart() {
             quantity[i].addEventListener('change', function() {
                 const currentId = parseInt(removeBtn[i].dataset.productId);
                 let originalPrice;
-                for (let j = 0; j < addToCartBtn.length; j++) {
-                    const findId2 = parseInt(addToCartBtn[j].dataset.productId);
+                for (let j = 0; j < productsList.length; j++) {
+                    const findId2 = parseInt(productsList[j].productId);
                     if (findId2 === currentId) {
-                        originalPrice = parseFloat(addToCartBtn[j].parentElement.querySelector('.price').innerHTML.replace('$', ''));
+                        originalPrice = parseFloat(productsList[j].price.replace('$', ''));
                     } 
                 }
                 const currentQuantity = parseInt(quantity[i].value);
+                if (currentQuantity < 1) {
+                    quantity[i].value = 1;
+                    currentQuantity = 1;
+                } else {
+                    quantity[i].setAttribute('value', currentQuantity);
+                }
                 const updatedPrice = originalPrice * currentQuantity;
                 itemPrices[i].innerHTML = `\$${updatedPrice.toFixed(2)}`;
-                quantity[i].setAttribute('value', currentQuantity);
             
                 updateTotal(document.querySelectorAll('.item-price'), displayTotalPrice);
             })
